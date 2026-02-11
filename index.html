@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Card Generator 🎂</title>
+<title>Epic Birthday Card Generator 🎂</title>
 
 <style>
 body {
@@ -19,13 +19,15 @@ header {
     font-weight: bold;
 }
 .container { padding: 15px; }
-.card {
+
+.card-input {
     background: white;
     padding: 15px;
     border-radius: 14px;
     margin-bottom: 15px;
     box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
+
 input, select, textarea {
     width: 100%;
     padding: 12px;
@@ -34,6 +36,7 @@ input, select, textarea {
     border: 1px solid #ccc;
     font-size: 16px;
 }
+
 button {
     width: 100%;
     padding: 14px;
@@ -44,14 +47,31 @@ button {
     font-size: 16px;
     font-weight: bold;
 }
-.message-box {
-    background: #fff5f8;
-    padding: 15px;
-    border-radius: 14px;
-    margin-bottom: 15px;
+
+/* CARD STYLES */
+.card {
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
-.action-buttons button {
-    background: #ff7aa2;
+
+.party {
+    background: linear-gradient(45deg,#ff512f,#dd2476,#ff9a9e);
+}
+
+.royal {
+    background: linear-gradient(45deg,#141e30,#243b55);
+}
+
+.game {
+    background: linear-gradient(45deg,#00c6ff,#0072ff);
+}
+
+.actions button {
+    background: rgba(255,255,255,0.2);
     margin-top: 8px;
 }
 </style>
@@ -59,76 +79,92 @@ button {
 
 <body>
 
-<header>🎉 Birthday Card Generator 🎂</header>
+<header>🎉 EPIC Birthday Generator 🎂</header>
 
 <div class="container">
-<div class="card">
-<label>Name of Birthday Star</label>
+
+<div class="card-input">
+<label>Name of Birthday Legend</label>
 <input type="text" id="nameField">
 
-<label>Age Turning</label>
+<label>Age Level Unlocking</label>
 <input type="number" id="ageField">
 
-<label>Hobby / Interest</label>
+<label>Favorite Hobby / Obsession</label>
 <input type="text" id="hobbyField">
 
-<label>Your Name</label>
+<label>Your Legendary Name</label>
 <input type="text" id="senderField">
 
-<label>Card Tone</label>
-<select id="toneField">
-<option>Funny</option>
-<option>Sweet</option>
-<option>Dramatic</option>
-</select>
-
-<label>Inside Joke / Special Memory</label>
+<label>Inside Joke / Legendary Memory</label>
 <textarea id="memoryField"></textarea>
 
-<button onclick="generateCards()">Generate 3 Cards 🎂</button>
+<button onclick="generateCards()">Generate EPIC Cards 🚀</button>
 </div>
 
 <div id="output"></div>
+
 </div>
 
 <script>
 function generateCards() {
-    const name = document.getElementById("nameField").value;
-    const age = document.getElementById("ageField").value;
-    const hobby = document.getElementById("hobbyField").value;
-    const sender = document.getElementById("senderField").value;
-    const memory = document.getElementById("memoryField").value;
+    const name = nameField.value;
+    const age = ageField.value;
+    const hobby = hobbyField.value;
+    const sender = senderField.value;
+    const memory = memoryField.value;
 
     const messages = [
-`🎉 Happy ${age}th Birthday ${name}! 🎂  
-Still ruling the world of ${hobby}!  
-${memory ? "Never forgetting: " + memory + " 😂" : ""}  
-Stay legendary! — ${sender}`,
 
-`🌟 Dear ${name},  
-On your ${age}th birthday, may your days be filled with joy, laughter, and lots of ${hobby}.  
-${memory ? "Thinking about: " + memory : ""}  
-Happy Birthday 💖 — ${sender}`,
+`🎉🚨 PARTY ALERT 🚨🎉  
+HOLD EVERYTHING.  
+It is officially ${name.toUpperCase()}'S ${age}TH BIRTHDAY!!!
 
-`🎮 LEVEL ${age} UNLOCKED!  
-Player: ${name}  
-Special Power: ${hobby} Master  
-${memory ? "Bonus Memory: " + memory : ""}  
-Guide: ${sender}  
-Press START to party 🎉`
+Confetti cannons firing 💥 Cake levels rising 🎂  
+Master of ${hobby} since day one 😎  
+
+${memory ? "Never forget the legendary moment: " + memory + " 🤣" : ""}
+
+Today we celebrate YOU like a global festival 🌍  
+— Party Commander ${sender}`,
+
+`👑 HEAR YE, HEAR YE 👑  
+By royal decree, on this glorious day, we honor  
+**Sir/Lady ${name} the Magnificent**,  
+who turns ${age} years of absolute greatness.
+
+Renowned across the lands for unmatched skill in ${hobby}.  
+${memory ? "Court historians still whisper about: " + memory : ""}
+
+May your year be filled with victory feasts and dramatic slow-motion entrances 🎺  
+With utmost loyalty,  
+${sender}, Royal Birthday Minister`,
+
+`🎬 THIS SUMMER… ONE HERO RETURNS.  
+Name: ${name}  
+Age Level: ${age}  
+Special Ability: Supreme ${hobby} Skills  
+
+${memory ? "Previously on their legendary saga: " + memory : ""}
+
+Mission Objective: Eat cake. Avoid responsibilities. Party hard.  
+
+Guided by elite strategist ${sender}  
+Press START to begin the birthday adventure 🎮🔥`
 ];
 
+    const styles = ["party","royal","game"];
     const output = document.getElementById("output");
     output.innerHTML = "";
 
-    messages.forEach(msg => {
+    messages.forEach((msg, i) => {
         const box = document.createElement("div");
-        box.className = "message-box";
+        box.className = "card " + styles[i];
         box.innerHTML = `<p>${msg.replace(/\n/g,"<br>")}</p>
-        <div class="action-buttons">
+        <div class="actions">
             <button onclick="navigator.clipboard.writeText(\`${msg}\`)">Copy</button>
             <button onclick="window.open('https://wa.me/?text='+encodeURIComponent(\`${msg}\`))">WhatsApp</button>
-            <button onclick="window.location.href='mailto:?subject=Happy Birthday!&body='+encodeURIComponent(\`${msg}\`)">Email</button>
+            <button onclick="window.location.href='mailto:?subject=EPIC Birthday Wishes!&body='+encodeURIComponent(\`${msg}\`)">Email</button>
         </div>`;
         output.appendChild(box);
     });
